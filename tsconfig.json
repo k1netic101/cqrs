@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",  // Vite-style resolution
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,  // For better IDE navigation
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]  // Optional: Aliases for imports
+    }
+  },
+  "include": ["src/**/*", "tests/**/*"],  // Include tests
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]  // Exclude tests from build
+}

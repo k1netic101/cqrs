@@ -1,0 +1,43 @@
+{
+  "name": "@k1netic101/cqrs",
+  "version": "0.1.0",
+  "description": "Shared CQRS module for TypeScript apps",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "pnpm build",
+    "example:mediator": "pnpm build && tsx examples/mediator.ts"
+  },
+  "keywords": [
+    "cqrs",
+    "typescript",
+    "mediator"
+  ],
+  "author": "Kiet Tran",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "@vitest/ui": "^4.0.8",
+    "rollup-plugin-dts": "^6.2.3",
+    "tsx": "^4.20.6",
+    "typescript": "^5.6.2",
+    "vite": "^7.2.2",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.8"
+  }
+}
