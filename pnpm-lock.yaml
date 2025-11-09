@@ -8,12 +8,6 @@ importers:
 
   .:
     devDependencies:
-      '@types/node':
-        specifier: ^22.7.4
-        version: 22.19.0
-      '@vitest/ui':
-        specifier: ^4.0.8
-        version: 4.0.8(vitest@4.0.8)
       rollup-plugin-dts:
         specifier: ^6.2.3
         version: 6.2.3(rollup@4.53.1)(typescript@5.9.3)
@@ -26,6 +20,9 @@ importers:
       vite:
         specifier: ^7.2.2
         version: 7.2.2(@types/node@22.19.0)(tsx@4.20.6)
+      vite-plugin-banner:
+        specifier: ^0.8.1
+        version: 0.8.1
       vite-plugin-dts:
         specifier: ^4.5.4
         version: 4.5.4(@types/node@22.19.0)(rollup@4.53.1)(typescript@5.9.3)(vite@7.2.2(@types/node@22.19.0)(tsx@4.20.6))
@@ -825,6 +822,9 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  vite-plugin-banner@0.8.1:
+    resolution: {integrity: sha512-0+gGguHk3MH0HvzMSOCJC6fGgH4+jtY9KlKVZh+hwwE+PBkGVzY8xe657JL74vEgbeUJD37XjVqTrmve8XvZBQ==}
+
   vite-plugin-dts@4.5.4:
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
     peerDependencies:
@@ -1063,7 +1063,8 @@ snapshots:
 
   '@microsoft/tsdoc@0.15.1': {}
 
-  '@polka/url@1.0.0-next.29': {}
+  '@polka/url@1.0.0-next.29':
+    optional: true
 
   '@rollup/pluginutils@5.3.0(rollup@4.53.1)':
     dependencies:
@@ -1194,6 +1195,7 @@ snapshots:
   '@types/node@22.19.0':
     dependencies:
       undici-types: 6.21.0
+    optional: true
 
   '@vitest/expect@4.0.8':
     dependencies:
@@ -1239,6 +1241,7 @@ snapshots:
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
       vitest: 4.0.8(@types/node@22.19.0)(@vitest/ui@4.0.8)(tsx@4.20.6)
+    optional: true
 
   '@vitest/utils@4.0.8':
     dependencies:
@@ -1393,9 +1396,11 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.3
 
-  fflate@0.8.2: {}
+  fflate@0.8.2:
+    optional: true
 
-  flatted@3.3.3: {}
+  flatted@3.3.3:
+    optional: true
 
   fs-extra@11.3.2:
     dependencies:
@@ -1474,7 +1479,8 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.6.1
 
-  mrmime@2.0.1: {}
+  mrmime@2.0.1:
+    optional: true
 
   ms@2.1.3: {}
 
@@ -1571,6 +1577,7 @@ snapshots:
       '@polka/url': 1.0.0-next.29
       mrmime: 2.0.1
       totalist: 3.0.1
+    optional: true
 
   source-map-js@1.2.1: {}
 
@@ -1603,7 +1610,8 @@ snapshots:
 
   tinyrainbow@3.0.3: {}
 
-  totalist@3.0.1: {}
+  totalist@3.0.1:
+    optional: true
 
   tsx@4.20.6:
     dependencies:
@@ -1618,13 +1626,16 @@ snapshots:
 
   ufo@1.6.1: {}
 
-  undici-types@6.21.0: {}
+  undici-types@6.21.0:
+    optional: true
 
   universalify@2.0.1: {}
 
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  vite-plugin-banner@0.8.1: {}
 
   vite-plugin-dts@4.5.4(@types/node@22.19.0)(rollup@4.53.1)(typescript@5.9.3)(vite@7.2.2(@types/node@22.19.0)(tsx@4.20.6)):
     dependencies:

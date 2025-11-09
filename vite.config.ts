@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import banner from 'vite-plugin-banner';
 import { resolve } from 'path';
 
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
       rollupTypes: true,  // Bundles .d.ts into single file
       exclude: ['vitest.config.ts', 'tests/**'],  // Skip tests
     }),
+    banner('/* @ts-self-types="./index.d.ts" */'),
   ],
   build: {
     lib: {

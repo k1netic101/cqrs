@@ -1,0 +1,14 @@
+{
+  "name": "@k1netic101/cqrs",
+  "version": "0.1.0",
+  "exports": "./dist/index.mjs",
+  "publish": {
+    "exclude": [
+      "src/**",
+      "tests/**",
+      "**/*.ts",
+      "node_modules/**",
+      "!dist"
+    ]
+  }
+}
