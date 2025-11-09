@@ -54,8 +54,6 @@ jobs:
       - run: pnpm build
 
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish-jsr:
     needs: build
