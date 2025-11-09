@@ -2,6 +2,21 @@
   "name": "@k1netic101/cqrs",
   "version": "0.1.0",
   "description": "Shared CQRS module for TypeScript apps",
+  "keywords": [
+    "cqrs",
+    "typescript",
+    "mediator"
+  ],
+  "author": "Kiet Tran",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/k1netic101/cqrs.git"
+  },
+  "homepage": "https://github.com/k1netic101/cqrs#readme",
+  "bugs": {
+    "url": "https://github.com/k1netic101/cqrs/issues"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -23,13 +38,6 @@
     "prepublishOnly": "pnpm build",
     "example:mediator": "pnpm build && tsx examples/mediator.ts"
   },
-  "keywords": [
-    "cqrs",
-    "typescript",
-    "mediator"
-  ],
-  "author": "Kiet Tran",
-  "license": "MIT",
   "devDependencies": {
     "@vitest/ui": "^4.0.8",
     "rollup-plugin-dts": "^6.2.3",
