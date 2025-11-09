@@ -3,22 +3,20 @@ name: Publish to npm & JSR
 on:
   push:
     tags:
-      - 'v*.*.*'  # Triggers on vX.Y.Z tags (ignores pre-releases like v0.2.0-alpha)
+      - 'v*.*.*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # For OIDC auth
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # For clean history
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: latest
 
       - uses: actions/setup-node@v4
         with:
@@ -27,23 +25,19 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm build  # Builds dist/ + injects @ts-self-types via banner
+      - run: pnpm build
 
-      - run: pnpm test  # Ensures quality
+      - run: pnpm test
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-        if: success()  # Only if build passes
+      # ... (upload artifact if needed)
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # Trusted publishing for npm
-    if: startsWith(github.ref, 'refs/tags/v')  # Only on tags
+      id-token: write
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-test')
     steps:
       - uses: actions/checkout@v4
 
@@ -53,13 +47,13 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org'  # Scoped public publish
+          registry-url: 'https://registry.npmjs.org'
 
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm build
 
-      - run: npm publish --access public  # Uses GITHUB_TOKEN via OIDC
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -68,8 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # OIDC for JSR
-    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-alpha')  # Skip pre-releases
+      id-token: write
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-test')
     steps:
       - uses: actions/checkout@v4
 
@@ -84,4 +78,4 @@ jobs:
 
       - run: pnpm build
 
-      - run: pnpm dlx jsr publish  # Auto-auth via OIDC (link repo in jsr.io settings first)
+      - run: pnpm dlx jsr publish
