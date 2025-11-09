@@ -1,0 +1,87 @@
+name: Publish to npm & JSR
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Triggers on vX.Y.Z tags (ignores pre-releases like v0.2.0-alpha)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # For OIDC auth
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # For clean history
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build  # Builds dist/ + injects @ts-self-types via banner
+
+      - run: pnpm test  # Ensures quality
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+        if: success()  # Only if build passes
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Trusted publishing for npm
+    if: startsWith(github.ref, 'refs/tags/v')  # Only on tags
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'  # Scoped public publish
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - run: npm publish --access public  # Uses GITHUB_TOKEN via OIDC
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-jsr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # OIDC for JSR
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-alpha')  # Skip pre-releases
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      - run: pnpm dlx jsr publish  # Auto-auth via OIDC (link repo in jsr.io settings first)
